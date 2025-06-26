@@ -2,33 +2,31 @@ import React, { useContext, useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input, } from 'antd';
 import { Context } from '../context/Context';
-import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
+import { Login } from '../service/Auth';
+
+export interface ValueType { username: string, password: string }
 
 const SignInForm: React.FC = () => {
+    const [disable, setDisable] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const { setToken } = useContext(Context)
-    const onFinish = (values: { username: string, password: string }) => {
+    const onFinish = (values: ValueType) => {
         setIsLoading(true)
-        axios.get('http://localhost:3000/users').then(data => {
-            const isUser = data.data.some((item: { username: string, password: string }) => item.username == values.username && item.password == values.password)
-            setTimeout(() => {
-                if (isUser) {
-                    setTimeout(() => {
-                        setToken(true)
-                        location.pathname = '/'
-                    }, 1000)
-                } else {
-                    toast.error('Bunday foydalanuvchi topilmadi!')
-                }
-                setIsLoading(false)
-            }, 1000)
-        })
+        Login(values, setIsLoading, setToken)
     };
+    function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
+        if (e.target.value.length >= 8 && e.target.value.length <= 16) {
+            setDisable(false)
+        }
+        else {
+            setDisable(true)
+        }
+    }
 
     return (
         <>
-            <Toaster position='top-right' reverseOrder={false}/>
+            <Toaster position="top-right" reverseOrder={false} />
             <Form
                 autoComplete='off'
                 name="login"
@@ -40,17 +38,16 @@ const SignInForm: React.FC = () => {
                     name="username"
                     rules={[{ required: true, message: 'Iltimos foydalanuvchi nomini kiriting!' }]}
                 >
-                    <Input size='large' allowClear prefix={<UserOutlined />} placeholder="Username" />
+                    <Input name='username' allowClear size='large' prefix={<UserOutlined />} placeholder="Username" />
                 </Form.Item>
                 <Form.Item
                     name="password"
-                    rules={[{ required: true, message: 'Iltimos parolni kiriting!' }]}
+                    rules={[{ required: true, message: 'Please input your Password!' }]}
                 >
-                    <Input.Password allowClear size='large' prefix={<LockOutlined />} type="password" placeholder="Password" />
+                    <Input.Password onChange={handlePasswordChange} minLength={8} name='password' allowClear size='large' prefix={<LockOutlined />} type="password" placeholder="Password" />
                 </Form.Item>
-
                 <Form.Item>
-                    <Button loading={isLoading} size='large' block type="primary" htmlType="submit">
+                    <Button disabled={disable} loading={isLoading} size='large' block type="primary" htmlType="submit">
                         Kirish
                     </Button>
                 </Form.Item>
