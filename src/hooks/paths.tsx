@@ -1,11 +1,13 @@
 import { TeamOutlined, UngroupOutlined, UnorderedListOutlined, UserOutlined } from "@ant-design/icons"
-import { Groups, Home, Major, Students, Teachers } from "../pages/Dashboard"
+import { Groups, Home, Major, MajorCrud, MajorMore, Students, Teachers } from "../pages/Dashboard"
 import NotFound from "../pages/NotFound"
 import { NavLink } from "react-router-dom"
 
 export const paths = {
     home: '/',
     major: '/major',
+    majorCrud: '/major/create',
+    majorMore: '/major/:id',
     students: '/students',
     groups: '/groups',
     teachers: '/teachers',
@@ -44,6 +46,16 @@ export const DashboardRouteList = [
         path: paths.notFound,
         element: <NotFound />
     },
+    {
+        id: 7,
+        path: paths.majorCrud,
+        element: <MajorCrud />
+    },
+    {
+        id: 8,
+        path: paths.majorMore,
+        element: <MajorMore />
+    }
 ]
 
 export const DashboardNavList = [

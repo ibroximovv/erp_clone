@@ -3,6 +3,7 @@ import Teachers from "./Teachers";
 import Students from "./Students";
 import Groups from "./Groups";
 import Home from "./Home";
-// import NotFound from "./NotFound";
+import MajorCrud from "./MajorCrud";
+import MajorMore from "./MajorMore";
 
-export { Major, Home, Students, Teachers, Groups, }
+export { Major, MajorCrud, MajorMore, Home, Students, Teachers, Groups, }
