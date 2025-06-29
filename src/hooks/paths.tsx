@@ -1,18 +1,25 @@
-import { TeamOutlined, UngroupOutlined, UnorderedListOutlined, UserOutlined } from "@ant-design/icons"
-import { Groups, Home, Major, MajorCrud, MajorMore, Students, Teachers } from "../pages/Dashboard"
-import NotFound from "../pages/NotFound"
-import { NavLink } from "react-router-dom"
+
+import { GroupCreate, GroupMore, Groups, Home, Major, MajorCrud, MajorMore, Students, Teachers } from "../pages/Dashboard"
+import { TeamOutlined, UngroupOutlined, UnorderedListOutlined, UserOutlined } from '@ant-design/icons';
+
+import { NavLink } from "react-router-dom";
+import NotFound from "../pages/NotFound";
 
 export const paths = {
-    home: '/',
-    major: '/major',
-    majorCrud: '/major/create',
-    majorMore: '/major/:id',
-    students: '/students',
-    groups: '/groups',
-    teachers: '/teachers',
-    signIn: '/sign-in',
-    notFound: '*'
+    home: "/",
+    singIn: "/sign-in",
+    major: "/major",
+    majorCrud: "/major/create",
+    majorMore: "/major/:id",
+    majorMoreCreateGroup: "/major/:id/create-group",
+    majorEdit: "/major/:id/edit",
+    groups: "/groups",
+    groupsCreate: "/groups/create",
+    groupsMore: "/groups/:groupId",
+    groupsEdit: "/groups/:groupId/edit",
+    students: "/students",
+    teachers: "/teachers",
+    notFound: "*"
 }
 
 export const DashboardRouteList = [
@@ -33,13 +40,13 @@ export const DashboardRouteList = [
     },
     {
         id: 4,
-        path: paths.teachers,
-        element: <Teachers />
+        path: paths.students,
+        element: <Students />
     },
     {
         id: 5,
-        path: paths.students,
-        element: <Students />
+        path: paths.teachers,
+        element: <Teachers />
     },
     {
         id: 6,
@@ -55,18 +62,42 @@ export const DashboardRouteList = [
         id: 8,
         path: paths.majorMore,
         element: <MajorMore />
-    }
+    },
+    {
+        id: 9,
+        path: paths.majorEdit,
+        element: <MajorCrud />
+    },
+    {
+        id: 10,
+        path: paths.majorMoreCreateGroup,
+        element: <GroupCreate />
+    },
+    {
+        id: 11,
+        path: paths.groupsCreate,
+        element: <GroupCreate />
+    },
+    {
+        id: 12,
+        path: paths.groupsMore,
+        element: <GroupMore />
+    },
+    {
+        id: 13,
+        path: paths.groupsEdit,
+        element: <GroupCreate />
+    },
 ]
-
 export const DashboardNavList = [
     {
         key: 1,
-        label:<NavLink to={paths.major}>Yo'nalishlar</NavLink>,
-        icon: <UnorderedListOutlined />
+        label: <NavLink to={paths.major}>Yo'nalishlar</NavLink>,
+        icon: <UnorderedListOutlined />,
     },
     {
         key: 2,
-        label: <NavLink to={paths.groups}>Guruhlar</NavLink>,
+        label: <NavLink to={paths.groups}>Guruxlar</NavLink>,
         icon: <UngroupOutlined />
     },
     {
